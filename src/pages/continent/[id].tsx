@@ -2,6 +2,7 @@ import React from 'react'
 import { GetStaticProps, GetStaticPaths } from 'next'
 import { api } from '../../axios/axios'
 import { Flex, Box, Text, Stack } from '@chakra-ui/react'
+import CityBox from '../../components/CityBox/CityBox'
 
 interface itensProps {
   id: number
@@ -13,7 +14,12 @@ interface itensProps {
     languages: string,
     cities: string
   },
-  cities: Object
+  cities: [{
+    cityName: string
+    photo: string
+    country: string
+    flag: string
+  }]
 }
 
 interface continentProps {
@@ -130,15 +136,30 @@ export default function continent({ continent }: continentProps) {
 
 
         </Flex>
-        <Text
-          marginLeft='2rem'
-          fontSize='1.5rem'
-        >
-          Cidades +100
-        </Text>
-        {
-          
-        }
+
+          <Text
+            marginLeft='3rem'
+            fontSize='1.5rem'
+          >
+            Cidades +100
+          </Text>
+          <Box
+            display='flex'
+            justifyContent='center'
+            w='100%'
+            p='2rem'
+            flexWrap='wrap'
+          >
+            {
+              continent.cities.map( city => {
+                return(
+                  <>
+                    <CityBox image={city.photo} cityName={city.cityName} country={city.country} flag={city.flag}/>
+                  </>
+                )
+              })
+            }
+          </Box>
       </Flex>
     )
 }
@@ -162,15 +183,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async (ctx) => {
     const id = Number(ctx.params.id) - 1
-    const { data } = await api.get(`/continentData/${id}`)
-    const continent = {
-      id: data.id,
-      continent: data.continent,
-      banner: data.banner,
-      text: data.text,
-      info: data.info,
-      cities: data.cities
-    }
+    const { data: continent } = await api.get(`/continentData/${id}`)
     
     return {
     props: {
