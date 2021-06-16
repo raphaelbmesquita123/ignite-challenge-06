@@ -1,0 +1,48 @@
+.mySwiper{
+    position: relative;
+    background: blue;
+    
+    .content{
+        display: flex;
+        flex-direction: column;
+        align-items:center;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate( -50%, -50%);
+        color: white;
+        cursor: pointer;
+        &:hover{
+            color: rgb(255, 187, 0);
+        }
+
+        h1{
+            font-size: 3rem;
+        }
+        h3{
+            font-size: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        @media only screen and (max-width: 900px){
+            h1{
+                font-size: 3rem;
+            }
+
+            h3{
+                font-size: 1rem;
+            }
+        }
+
+        @media only screen and (max-width: 600px){
+            h1{
+                font-size: 1rem;
+            }
+
+            h3{
+                margin-top: 0.2rem;
+                font-size: 0.6rem;
+            }
+        }
+    }
+}
